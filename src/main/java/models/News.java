@@ -14,7 +14,7 @@ public class News {
         this.title = title;
         this.content = content;
         this.writtenBy = writtenBy;
-        this.type = type;
+        this.type = "Organisation News";
         this.department_id = department_id;
     }
 
