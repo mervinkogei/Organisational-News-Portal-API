@@ -41,13 +41,14 @@ public class Sql2oEmployeeDao implements EmployeeDao {
         }
     }
     @Override
-    public void getAllEmployeesByDepartment(int department_id){
+    public List<Employee> getAllEmployeesByDepartment(int department_id){
         String sql = "SELECT * FROM employees WHERE department_id = department_id";
         try(Connection con = sql2o.open()){
             con.createQuery(sql)
                     .addParameter("department_id",department_id)
                     .executeAndFetch(Employee.class);
         }
+        return null;
     }
     @Override
     public void deleteById(int id) {
