@@ -14,7 +14,7 @@ public interface EmployeeDao {
     Employee findById(int id);
 
     //List Employees in the Department
-    List<Employee>getAllEmployeesByDepartment(int department_id);
+    void getAllEmployeesByDepartment(int department_id);
 
     //Delete By Id
     void deleteById(int id);
