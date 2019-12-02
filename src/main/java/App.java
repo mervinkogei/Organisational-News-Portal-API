@@ -43,6 +43,11 @@ public class App {
         final String cannotBeEmptyMsg = "Warning!!!, %s cannot be empty!!!, Please try again",cannotBeEmpty;
         conn = sql2o.open();
 
+        //Display page
+        get("/", (request, response) -> {
+            response.redirect("/employees");
+            return null;
+        });
         //post new department
         post("/departments/new", "application/json", (req, res) -> { // here we accept a request in JSON
             Department department = gson.fromJson(req.body(), Department.class);
