@@ -56,6 +56,20 @@ public class App {
             return gson.toJson(departmentDao.getAll());//send it back to be displayed
         });
 
+        // get all employees
+        get("/employees", "application/json", (req, res) -> { //accept a request in format JSON from an app
+            res.type("application/json");
+            return gson.toJson(employeeDao.getAll());//send it back to be displayed
+        });
+
+        // get Employee by id
+        get("/employees/:id", "application/json", (req, res) -> {
+            res.type("application/json");
+            int id = Integer.parseInt(req.params("id"));
+            res.type("application/json");
+            return gson.toJson(employeeDao.findById(id));
+        });
+
         //find department by id
         get("/departments/:id", "application/json", (req, res) -> {
             res.type("application/json");
@@ -73,7 +87,7 @@ public class App {
         });
 
         //get employees in a department
-        get("/departments/:id/employee", "application/json", (req, res) -> {
+        get("/departments/:id/employees", "application/json", (req, res) -> {
             res.type("application/json");
             int department_id = Integer.parseInt(req.params("id"));
             res.type("application/json");
@@ -98,9 +112,17 @@ public class App {
             return gson.toJson(news);
         });
 
-
-
-
-
+        //get all News
+        get("/news", "application/json", (req, res) -> { //accept a request in format JSON from an app
+            res.type("application/json");
+            return gson.toJson(newsDao.getAll());//send it back to be displayed
+        });
+        // get News by id
+        get("/news/:id", "application/json", (req, res) -> {
+            res.type("application/json");
+            int id = Integer.parseInt(req.params("id"));
+            res.type("application/json");
+            return gson.toJson(newsDao.findById(id));
+        });
     }
 }
