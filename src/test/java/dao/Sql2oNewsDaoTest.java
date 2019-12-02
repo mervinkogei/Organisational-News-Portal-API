@@ -18,7 +18,7 @@ public class Sql2oNewsDaoTest {
 
     @Before
     public void setUp() throws Exception {
-        String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
+        String connectionString = "jdbc:postgresql://localhost:5432/news_portal";
         Sql2o sql2o = new Sql2o(connectionString, "moringa", "1234");
         newsDao = new Sql2oNewsDao(sql2o);
         departmentDao =new Sql2oDepartmentDao(sql2o);
