@@ -17,8 +17,6 @@ public class App {
         ProcessBuilder process = new ProcessBuilder();
         Integer port;
 
-        // This tells our app that if Heroku sets a port for us, we need to use that port.
-        // Otherwise, if they do not, continue using port 4567.
 
         if (process.environment().get("PORT") != null) {
             port = Integer.parseInt(process.environment().get("PORT"));
@@ -34,14 +32,12 @@ public class App {
         Connection conn;
         Gson gson= new Gson();
 
-        String connectionString = "jdbc:postgresql://localhost:5432/news_portal";
-        Sql2o sql2o = new Sql2o(connectionString, "moringa", "1234");
 
-        departmentDao = new Sql2oDepartmentDao(sql2o);
-        employeeDao = new Sql2oEmployeeDao(sql2o);
-        newsDao = new Sql2oNewsDao(sql2o);
+        departmentDao = new Sql2oDepartmentDao(DB.sql2o);
+        employeeDao = new Sql2oEmployeeDao(DB.sql2o);
+        newsDao = new Sql2oNewsDao(DB.sql2o);
         final String cannotBeEmptyMsg = "Warning!!!, %s cannot be empty!!!, Please try again",cannotBeEmpty;
-        conn = sql2o.open();
+        conn = DB.sql2o.open();
 
         //Display page
         get("/", (request, response) -> {
