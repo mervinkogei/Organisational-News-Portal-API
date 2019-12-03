@@ -1,19 +1,20 @@
 import com.google.gson.Gson;
-import dao.Sql2oEmployeeDao;
 import dao.Sql2oDepartmentDao;
+import dao.Sql2oEmployeeDao;
 import dao.Sql2oNewsDao;
 import exceptions.ApiException;
 import models.Department;
 import models.Employee;
 import models.News;
-import org.sql2o.*;
-import static  spark.Spark.*;
+import org.sql2o.Sql2o;
+
+import java.sql.Connection;
+
+import static spark.Spark.*;
 
 public class App {
 
     public static void main(String[] args) {
-        staticFileLocation("/public");
-
         ProcessBuilder process = new ProcessBuilder();
         Integer port;
 
@@ -21,7 +22,7 @@ public class App {
         if (process.environment().get("PORT") != null) {
             port = Integer.parseInt(process.environment().get("PORT"));
         } else {
-            port = 5432;
+            port = 4567;
         }
 
         port(port);
@@ -29,17 +30,20 @@ public class App {
         Sql2oNewsDao newsDao;
         Sql2oDepartmentDao departmentDao;
         Sql2oEmployeeDao employeeDao;
-        Connection conn;
+        Connection con;
         Gson gson= new Gson();
 
+        staticFileLocation("/public");
+        String connectionString = "jdbc:postgresql://localhost:5432/news_portal";   //connect to news_portal
+        Sql2o sql2o = new Sql2o(connectionString, "moringa", "1234");
 
-        departmentDao = new Sql2oDepartmentDao(DB.sql2o);
-        employeeDao = new Sql2oEmployeeDao(DB.sql2o);
-        newsDao = new Sql2oNewsDao(DB.sql2o);
+        departmentDao = new Sql2oDepartmentDao(sql2o);
+        employeeDao = new Sql2oEmployeeDao(sql2o);
+        newsDao = new Sql2oNewsDao(sql2o);
         final String cannotBeEmptyMsg = "Warning!!!, %s cannot be empty!!!, Please try again",cannotBeEmpty;
-        conn = DB.sql2o.open();
+//        con = (Connection) sql2o.open();
 
-        //Display page
+       // Display page
         get("/", (request, response) -> {
             response.redirect("/employees");
             return null;
