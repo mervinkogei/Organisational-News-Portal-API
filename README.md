@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/mervinkogei/Organisational-News-Portal-API.svg?style=svg)](https://circleci.com/gh/mervinkogei/Organisational-News-Portal-API)
+
 ## Organisational News API
 * This is an Organisational News API Application that enables a user to View Departments, Employees and News with the aid of the department_id.
 
